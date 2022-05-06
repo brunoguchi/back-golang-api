@@ -6,40 +6,40 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-type Livro struct {
-	Id        int
-	Descricao string
+type Book struct {
+	Id          int
+	Description string
 }
 
-func MockarDados() []Livro {
-	livros := []Livro{
-		{Id: 1, Descricao: "livro 1"},
-		{Id: 2, Descricao: "livro 2"},
-		{Id: 3, Descricao: "livro 3"},
-		{Id: 4, Descricao: "livro 4"},
-		{Id: 5, Descricao: "livro 5"},
+func MockedData() []Book {
+	books := []Book{
+		{Id: 1, Description: "book 1"},
+		{Id: 2, Description: "book 2"},
+		{Id: 3, Description: "book 3"},
+		{Id: 4, Description: "book 4"},
+		{Id: 5, Description: "book 5"},
 	}
 
-	return livros
+	return books
 }
 
 func GetBooks(c *gin.Context) {
-	c.JSON(200, MockarDados())
+	c.JSON(200, MockedData())
 }
 
 func GetBookById(c *gin.Context) {
 	idParam := c.Param("id")
-	intVar, err := strconv.Atoi(idParam)
+	id, err := strconv.Atoi(idParam)
 
 	if err != nil {
 		c.JSON(400, gin.H{"error": "Id has to be integer"})
 		return
 	}
 
-	livros := MockarDados()
+	books := MockedData()
 
-	for _, x := range livros {
-		if x.Id == intVar {
+	for _, x := range books {
+		if x.Id == id {
 			c.JSON(200, x)
 			return
 		}
